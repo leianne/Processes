@@ -9,6 +9,18 @@
 int main(void)
 {
     // Your code here
+    int x = 100;
+    int rc = fork();
+
+    if(rc < 0) {
+        printf(stderr, "fork failed");
+    } else if (rc == 0) {
+        x = 20;
+        printf("value of x in child: %d", x);
+    } else {
+        x = 33;
+        printf("value of x in parent: %d", x);
+    }
 
     return 0;
 }
