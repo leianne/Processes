@@ -1,0 +1,2 @@
+workingI am writing from the Parent process!
+workingI am writing from the child process!
