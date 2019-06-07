@@ -17,6 +17,27 @@ char* msg3 = "hello world #3";
 int main(void)
 {
     // Your code here
-    
+    char buffer[MSGSIZE];
+    int p[100];
+
+    if(pipe(p) < 0) {
+        fprintf(stderr, "Pipe failed!\n");
+        exit(1);
+    }
+    pid_t pid = fork();
+
+    if(pid < 0) {
+        fprintf(stderr, "Fork failure!\n");
+        exit(1); 
+    } else if(pid == 0) {
+        write(p[1], msg1, MSGSIZE);
+        write(p[1], msg2, MSGSIZE);
+        write(p[1], msg3, MSGSIZE);
+    } else {
+        for(int i = 0; i < 3; i++) {
+            read(p[0], buffer, MSGSIZE);
+            printf("%s\n", buffer);
+        }
+    }
     return 0;
 }
